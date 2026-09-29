@@ -1,9 +1,9 @@
 <?php
-$host ="localhost";
+$host = "localhost";
 $dbname = "inventory";
 $username = "root";
 $password = "";
-try{
+try {
     $conn = new PDO(
         "mysql:host=$host;dbname=$dbname",
         $username,
@@ -13,17 +13,7 @@ try{
         PDO::ATTR_ERRMODE,
         PDO::ERRMODE_EXCEPTION
     );
-    echo "Database connected successfully";
-    function ExecuteSelect($query, $values){
-        global $conn;
-        $stmt = $conn->prepare($query);
-        $stmt->execute($values);
-        $data = $stmt->fetch();
-        return $data;
-    }
-
-
-}catch(PDOException $e){
-    echo "Database connection failed";
+    // echo "Database connected successfully";
+} catch (PDOException $e) {
+    echo "Database connection failed" . $e->getMessage();
 }
-?>

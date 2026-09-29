@@ -5,24 +5,26 @@ require_once "sidebar.php";
 ?>
 
 <div class="bg-white p-1 rounded-xl border shadow-sm">
-    <form action="" class="p-6" method="POST">
+    <form action="add_product_succ.php" class="p-6" method="POST">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-4">
             <div>
                 <label for="product-name" class="block mb-2 text-sm font-medium text-gray-700">
                     Product Name
                 </label>
                 <input
-                    id="product-name"
+                    id="product_name"
+                    name="product_name"
                     type="text"
                     class="w-full rounded-md border border-indigo-300 px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" required >
             </div>
 
             <div>
                 <label for="sku" class="block mb-2 text-sm font-medium text-gray-700">
-                    SKU / Product Code
+                     Product Code
                 </label>
                 <input
-                    id="sku"
+                    id="product_code"
+                    name="product_code"
                     type="text"
                     class="w-full rounded-md border border-indigo-300 px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" required>
             </div>
@@ -33,6 +35,7 @@ require_once "sidebar.php";
                 </label>
                 <input
                     id="category"
+                    name="category"
                     type="text"
                     class="w-full rounded-md border border-indigo-300 px-3 py-2 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" required>
             </div>
