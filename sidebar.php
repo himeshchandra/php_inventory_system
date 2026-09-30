@@ -34,7 +34,7 @@
                 </li>
 
                 <li>
-                    <a href="purchases.php"
+                    <a href="purchase.php"
                         class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700">
                         Purchases
                     </a>

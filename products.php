@@ -10,7 +10,7 @@ $product_info = $db_connection->fetchAll(PDO::FETCH_ASSOC);
 // var_dump($product_info);
 ?>
 
-<div class="bg-white p-1 rounded-xl border shadow-sm">
+<div class="bg-white p-1 rounded-xl border shadow-sm">    
     <div class="flex justify-between p-2">
         <h3 class="text-3xl font-bold mt-2">
             Products
@@ -22,7 +22,7 @@ $product_info = $db_connection->fetchAll(PDO::FETCH_ASSOC);
         </a>
     </div>
 </div>
-<div class="bg-white p-1 rounded-xl border border-gray-200 shadow-sm overflow-x-auto mt-6">
+<div class="bg-white p-1 rounded-xl border border-gray-200 shadow-sm overflow-x-auto mt-6">    
     <table class="table-fixed w-full text-left text-sm text-gray-600">
         <thead class="bg-gray-100 text-xs uppercase text-gray-700">
             <tr>

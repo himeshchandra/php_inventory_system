@@ -11,6 +11,7 @@ $user_name = $_SESSION['user_name'];
     <title>Inventory System</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body class="bg-gray-100">

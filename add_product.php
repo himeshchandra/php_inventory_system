@@ -4,7 +4,7 @@ require_once "header.php";
 require_once "sidebar.php";
 ?>
 
-<div class="bg-white p-1 rounded-xl border shadow-sm">
+<div class="bg-white p-1 rounded-xl border shadow-sm">    
     <form action="add_product_succ.php" class="p-6" method="POST">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-4">
             <div>
