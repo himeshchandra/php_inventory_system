@@ -1,12 +1,21 @@
 <?php
+$active ="sales";
 session_start();
 require_once "header.php";
 require_once "sidebar.php";
 require_once "config/database.php";
 $products_list = $conn->query("SELECT id AS product_id,product_name FROM products ORDER BY product_name")->fetchAll(PDO::FETCH_ASSOC);
+$message = "";
+
+if (isset($_GET['message'])) {
+    $message = $_GET['message'];
+}
 ?>
 <div class="bg-white p-1 rounded-xl border shadow-sm">
-    <form action="" class="p-6" method="POST" onsubmit="return quantityCheck()">
+    <div>
+        <h4 class="text-green-500"> <?php echo $message ?></h4>
+    </div>
+    <form action="sale_succ.php" class="p-6" method="POST" onsubmit="return quantityCheck()">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-4">
             <div>
                 <label for="Customer name" class="block mb-2 text-sm font-medium text-gray-700">
@@ -62,6 +71,7 @@ $products_list = $conn->query("SELECT id AS product_id,product_name FROM product
                     Quantity
                 </label>
                 <input
+                    oninput="quantityCheck()"
                     id="quantity"
                     name="quantity"
                     type="number"
@@ -86,7 +96,7 @@ $products_list = $conn->query("SELECT id AS product_id,product_name FROM product
             <!-- <a href="">
                 <button type="button" class="px-5 py-2.5 bg-gray-500 text-white font-medium rounded-md hover:bg-gray-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400">Back</button>
             </a> -->
-            <button type="submit" id="submitBtn" class="px-5 py-2.5 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-500">Purchase</button>
+            <button type="submit" id="submitBtn" class="px-5 py-2.5 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-500">Sale</button>
         </div>
     </form>
 </div>

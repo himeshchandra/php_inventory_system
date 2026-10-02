@@ -1,4 +1,5 @@
 <?php
+$active = 'purchase';
 session_start();
 require_once "config/database.php";
 require_once "header.php";

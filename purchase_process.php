@@ -36,6 +36,7 @@ try {
     $db_connection = $conn->prepare($stock_ins);
     $db_connection->execute([$product_id, $type, $quantity, $user_id]);
     $conn->commit();
+    header("location: purchase.php");
 } catch (Exception $e) {
     if($conn->inTransaction()){
         $conn->rollBack();

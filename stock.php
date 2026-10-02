@@ -1,4 +1,5 @@
 <?php
+$active = 'stocks';
 session_Start();
 require_once "header.php";
 require_once "sidebar.php";
@@ -10,6 +11,39 @@ FROM products p LEFT JOIN stock_transactions st ON p.id = st.product_id GROUP BY
 $db_connection = $conn->prepare($stock_query);
 $db_connection->execute([]);
 $stock_info = $db_connection->fetchAll(PDO::FETCH_ASSOC);
+
+$total_products = $conn->query("SELECT COUNT(*) FROM products")->fetchColumn();
+$total_purchase = $conn->query("SELECT COALESCE(SUM(total_amount),0) FROM purchase")->fetchColumn();
+$total_sales = $conn->query("SELECT COALESCE(SUM(total_amount),0) FROM sales")->fetchColumn();
+$low_stock = $conn->query("SELECT COUNT(*)
+FROM (
+    SELECT 
+        p.id,
+        p.minimum_stock,
+        COALESCE(SUM(CASE WHEN st.type = 'IN' THEN st.quantity ELSE 0 END), 0)
+        -
+        COALESCE(SUM(CASE WHEN st.type = 'OUT' THEN st.quantity ELSE 0 END), 0) AS current_stock
+    FROM products p
+    LEFT JOIN stock_transactions st 
+        ON p.id = st.product_id
+    GROUP BY p.id, p.minimum_stock
+) AS stock_summary
+WHERE current_stock <= minimum_stock;
+")->fetchColumn();
+
+$out_of_stock = $conn->query("SELECT COUNT(*)
+FROM (
+    SELECT 
+        p.id,
+        COALESCE(SUM(CASE WHEN st.type = 'IN' THEN st.quantity ELSE 0 END), 0)
+        -
+        COALESCE(SUM(CASE WHEN st.type = 'OUT' THEN st.quantity ELSE 0 END), 0) AS current_stock
+    FROM products p
+    LEFT JOIN stock_transactions st 
+        ON p.id = st.product_id
+    GROUP BY p.id
+) AS stock_summary
+WHERE current_stock = 0;")->fetchColumn();
 ?>
 
 <div class="grid grid-cols-4 gap-6 mt-6">
@@ -21,7 +55,7 @@ $stock_info = $db_connection->fetchAll(PDO::FETCH_ASSOC);
         </p>
 
         <h3 class="text-3xl font-bold mt-2">
-            250
+            <?php echo $total_products ?>
         </h3>
 
     </div>
@@ -30,11 +64,11 @@ $stock_info = $db_connection->fetchAll(PDO::FETCH_ASSOC);
     <div class="bg-white p-6 rounded-xl border shadow-sm">
 
         <p class="text-gray-500">
-            Total Stock
+            Total Purchase
         </p>
 
         <h3 class="text-3xl font-bold mt-2">
-            1,250
+            <?php echo $total_purchase ?>
         </h3>
 
     </div>
@@ -45,7 +79,7 @@ $stock_info = $db_connection->fetchAll(PDO::FETCH_ASSOC);
         </p>
 
         <h3 class="text-3xl font-bold mt-2 text-red-500">
-            12
+            <?php echo $low_stock ?>
         </h3>
 
     </div>
@@ -57,7 +91,7 @@ $stock_info = $db_connection->fetchAll(PDO::FETCH_ASSOC);
         </p>
 
         <h3 class="text-3xl font-bold mt-2">
-            ₹25,500
+            <?php echo $out_of_stock ?>
         </h3>
 
     </div>

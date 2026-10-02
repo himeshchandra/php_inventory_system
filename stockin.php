@@ -1,4 +1,5 @@
 <?php
+$active = 'stocks';
 session_start();
 require_once "header.php";
 require_once "sidebar.php";
@@ -60,7 +61,7 @@ $product_info = $db_connection->fetchAll(PDO::FETCH_ASSOC);
                     type="number"
                     step="0.01"
                     class="w-full px-3 py-2 border border-indigo-300 rounded-md outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" required
-                    placeholder="Current Stock">
+                    placeholder="Current Stock" disabled>
             </div>
             <div>
                 <label for="purchase-price" class="block mb-2 text-sm font-medium text-gray-700">
