@@ -1,13 +1,15 @@
 <?php
     session_start();
     require_once "config/database.php";
+    
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $user_info_q = "SELECT * FROM users WHERE email = :email AND password = :password";
+
+    $user_info_q = "SELECT * FROM users WHERE email = ? AND password = ?";
     $db_connection = $conn->prepare($user_info_q);
     $db_connection->execute([
-        ':email' => $email,
-        ':password' => $password
+         $email,
+        $password
     ]);
     $user = $db_connection->fetch(PDO::FETCH_ASSOC);
     if($user){
