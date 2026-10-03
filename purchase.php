@@ -8,9 +8,23 @@ $product_data = "SELECT product_name,id AS product_id FROM products";
 $db_connection = $conn->prepare($product_data);
 $db_connection->execute([]);
 $product_info = $db_connection->fetchAll(PDO::FETCH_ASSOC);
+
+$message = "";
+$status = "";
+if (isset($_GET['message']) && isset($_GET['status'])) {
+    $message = $_GET['message'];
+    $status = $_GET['status'];
+}
 ?>
 <div class="bg-white p-1 rounded-xl border shadow-sm">
     <form action="purchase_process.php" class="p-6" method="POST">
+        <div>
+            <?php if ($status) { ?>
+                <h4 class="text-green-500"> <?php echo htmlspecialchars($message) ?></h4>
+            <?php } else { ?>
+                <h4 class="text-red-500"> <?php echo htmlspecialchars($message) ?></h4>
+            <?php } ?>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-4">
             <div>
                 <label for="supplier name" class="block mb-2 text-sm font-medium text-gray-700">

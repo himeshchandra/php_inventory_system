@@ -1,9 +1,5 @@
 <?php
 $error = $_GET['error'] ?? null;
-$message = "";
-if (isset($_GET['message'])) {
-    $message = $_GET['message'];
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,13 +14,14 @@ if (isset($_GET['message'])) {
 
 <body>
     <div class="flex justify-center items-center min-h-screen">
-        <form action="login_succ.php" method="POST">
-            <?php if ($message) { ?>
-                <h1 class="text-green-700 p-3 rounded"><?php echo $message ?></h1>
-            <?php } ?>
+        <form action="register_succ.php" method="POST">
             <div class="border-2 border-gray-600 rounded-xl  w-[350px] p-5">
-                <h1 class="font-bold text-3xl mb-3">Login</h1>
-                <label for="">User Name</label>
+                <h1 class="font-bold text-3xl mb-3">Register</h1>
+                <label for="">Full Name</label>
+                <div class="pb-3">
+                    <input type="text" name="name" class="border border-gray-300 outline-blue-400 rounded w-full p-1">
+                </div>
+                <label for="">Email</label>
                 <div class="pb-3">
                     <input type="email" name="email" class="border border-gray-300 outline-blue-400 rounded w-full p-1">
                 </div>
@@ -40,10 +37,6 @@ if (isset($_GET['message'])) {
                 <?php endif; ?>
                 <button type="submit"
                     class="py-1 border hover:bg-blue-200 hover:text-blue-500 text-white bg-blue-500 rounded-lg font-semibold w-full p-1 mb-2">Submit</button>
-                <a href="register.php">
-                    <button type="button"
-                        class="py-1 border hover:bg-blue-200 hover:text-blue-500 text-white bg-blue-500 rounded-lg font-semibold w-full p-1">Create a new User</button>
-                </a>
             </div>
         </form>
     </div>

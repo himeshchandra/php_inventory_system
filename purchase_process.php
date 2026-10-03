@@ -36,10 +36,11 @@ try {
     $db_connection = $conn->prepare($stock_ins);
     $db_connection->execute([$product_id, $type, $quantity, $user_id]);
     $conn->commit();
-    header("location: purchase.php");
+    header("location: purchase.php?message=Purchase completed Successfully&status=true");
 } catch (Exception $e) {
-    if($conn->inTransaction()){
+    if ($conn->inTransaction()) {
         $conn->rollBack();
+        header("location: purchase.php?message=Purchase failed&status=false");
     }
     echo $e->getMessage();
 }
